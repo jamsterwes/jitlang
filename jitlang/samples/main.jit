@@ -1,0 +1,27 @@
+fn countdown() {
+    testVar--
+    testVar
+}
+
+testVar: num = 12
+testVar2: str = "Testing this string here \" howdy"
+
+// Print testVar
+testVar
+
+// Increment testVar then print
+testVar++
+testVar
+
+// Decrement testVar then print
+testVar--
+testVar
+
+// Print testVar2 (string var)
+testVar2
+
+hello()
+hello()
+hello()
+hello()
+// tostr(tonum("65.54"))

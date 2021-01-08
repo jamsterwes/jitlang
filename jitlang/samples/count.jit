@@ -1,0 +1,12 @@
+counter: num = 20
+sentinel: num = 0
+
+fn countdown() {
+    counter
+    counter--
+    if (counter > sentinel) {
+        countdown()
+    }
+}
+
+countdown()
