@@ -29,16 +29,23 @@ assign
     ;
 
 expr
+    : atom                                      // atomExpr
+    | preIncr=('++' | '--') expr                // preDecrExpr
+    | expr postIncr=('++' | '--')               // postIncrExpr
+    | expr mult=('*' | '/' | '%') expr          // multExpr
+    | expr add=('+' | '-') expr                 // addExpr
+    | expr gt=('>' | '>=' | '<=' | '<') expr    // cmpGtExpr
+    | expr eq=('==' | '!=') expr                // cmpEqExpr
+    | func_call                                 // funcCallExpr
+    | '(' expr ')'                              // parenExpr
+    | expr logAnd=('&&' | AND) expr             // logAnd
+    | expr logOr=('||' | OR) expr               // logOr
+    | cond=expr tern='?' t=expr ':' f=expr      // ternExpr
+    ;
+
+atom
     : literal
     | IDENT
-    | incr_decr
-    | func_call
-    | lhs=expr cmpop='>' rhs=expr
-    | lhs=expr cmpop='<' rhs=expr
-    | lhs=expr cmpop='>=' rhs=expr
-    | lhs=expr cmpop='<=' rhs=expr
-    | lhs=expr cmpop='==' rhs=expr
-    | lhs=expr cmpop='!=' rhs=expr
     ;
 
 arg_list
@@ -50,18 +57,13 @@ func_call
     | IDENT '(' ')'
     ;
 
-incr_decr
-    : incr
-    | decr
-    ;
-
-incr: IDENT '++';
-decr: IDENT '--';
-
 literal
     : NUMBER
     | STRING
     ;
+
+AND : 'and';
+OR : 'or';
 
 IDENT
     : [a-zA-Z_][a-zA-Z0-9_]*

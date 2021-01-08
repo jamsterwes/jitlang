@@ -14,14 +14,16 @@ public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
     T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
-    T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, IDENT = 19, STRING = 20, 
-    NUMBER = 21, WHITESPACE = 22, COMMENT = 23
+    T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, T__18 = 19, T__19 = 20, 
+    T__20 = 21, T__21 = 22, T__22 = 23, T__23 = 24, T__24 = 25, T__25 = 26, 
+    AND = 27, OR = 28, IDENT = 29, STRING = 30, NUMBER = 31, WHITESPACE = 32, 
+    COMMENT = 33
   };
 
   enum {
     RuleFile = 0, RuleStmt = 1, RuleFunction_define = 2, RuleIf_stmt = 3, 
-    RuleDefine = 4, RuleAssign = 5, RuleExpr = 6, RuleArg_list = 7, RuleFunc_call = 8, 
-    RuleIncr_decr = 9, RuleIncr = 10, RuleDecr = 11, RuleLiteral = 12
+    RuleDefine = 4, RuleAssign = 5, RuleExpr = 6, RuleAtom = 7, RuleArg_list = 8, 
+    RuleFunc_call = 9, RuleLiteral = 10
   };
 
   explicit JITLangParser(antlr4::TokenStream *input);
@@ -41,11 +43,9 @@ public:
   class DefineContext;
   class AssignContext;
   class ExprContext;
+  class AtomContext;
   class Arg_listContext;
   class Func_callContext;
-  class Incr_decrContext;
-  class IncrContext;
-  class DecrContext;
   class LiteralContext; 
 
   class  FileContext : public antlr4::ParserRuleContext {
@@ -147,23 +147,44 @@ public:
 
   class  ExprContext : public antlr4::ParserRuleContext {
   public:
-    JITLangParser::ExprContext *lhs = nullptr;
-    antlr4::Token *cmpop = nullptr;
-    JITLangParser::ExprContext *rhs = nullptr;
+    JITLangParser::ExprContext *cond = nullptr;
+    antlr4::Token *preIncr = nullptr;
+    antlr4::Token *mult = nullptr;
+    antlr4::Token *add = nullptr;
+    antlr4::Token *gt = nullptr;
+    antlr4::Token *eq = nullptr;
+    antlr4::Token *logAnd = nullptr;
+    antlr4::Token *logOr = nullptr;
+    antlr4::Token *tern = nullptr;
+    JITLangParser::ExprContext *t = nullptr;
+    JITLangParser::ExprContext *f = nullptr;
+    antlr4::Token *postIncr = nullptr;
     ExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    LiteralContext *literal();
-    antlr4::tree::TerminalNode *IDENT();
-    Incr_decrContext *incr_decr();
-    Func_callContext *func_call();
+    AtomContext *atom();
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
+    Func_callContext *func_call();
+    antlr4::tree::TerminalNode *AND();
+    antlr4::tree::TerminalNode *OR();
 
    
   };
 
   ExprContext* expr();
   ExprContext* expr(int precedence);
+  class  AtomContext : public antlr4::ParserRuleContext {
+  public:
+    AtomContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    LiteralContext *literal();
+    antlr4::tree::TerminalNode *IDENT();
+
+   
+  };
+
+  AtomContext* atom();
+
   class  Arg_listContext : public antlr4::ParserRuleContext {
   public:
     JITLangParser::ExprContext *exprContext = nullptr;
@@ -189,40 +210,6 @@ public:
   };
 
   Func_callContext* func_call();
-
-  class  Incr_decrContext : public antlr4::ParserRuleContext {
-  public:
-    Incr_decrContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    IncrContext *incr();
-    DecrContext *decr();
-
-   
-  };
-
-  Incr_decrContext* incr_decr();
-
-  class  IncrContext : public antlr4::ParserRuleContext {
-  public:
-    IncrContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *IDENT();
-
-   
-  };
-
-  IncrContext* incr();
-
-  class  DecrContext : public antlr4::ParserRuleContext {
-  public:
-    DecrContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *IDENT();
-
-   
-  };
-
-  DecrContext* decr();
 
   class  LiteralContext : public antlr4::ParserRuleContext {
   public:

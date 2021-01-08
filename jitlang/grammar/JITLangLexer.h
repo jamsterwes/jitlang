@@ -14,8 +14,10 @@ public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
     T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
-    T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, IDENT = 19, STRING = 20, 
-    NUMBER = 21, WHITESPACE = 22, COMMENT = 23
+    T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, T__18 = 19, T__19 = 20, 
+    T__20 = 21, T__21 = 22, T__22 = 23, T__23 = 24, T__24 = 25, T__25 = 26, 
+    AND = 27, OR = 28, IDENT = 29, STRING = 30, NUMBER = 31, WHITESPACE = 32, 
+    COMMENT = 33
   };
 
   explicit JITLangLexer(antlr4::CharStream *input);
