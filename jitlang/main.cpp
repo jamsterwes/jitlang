@@ -2,8 +2,9 @@
 #include "grammar/JITLangLexer.h"
 #include "grammar/JITLangParser.h"
 #include "Parser.h"
+
 #include "ast/BlockNode.h"
-#include "SlowInterpreter/SlowInterpreter.h"
+#include <string>
 
 using namespace std;
 using namespace antlr4;
@@ -18,18 +19,16 @@ int main(int argc, const char** argv)
     JITLangLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
     JITLangParser antlrParser(&tokens);
-
     JITLangParser::FileContext* file = antlrParser.file();
 
     jitlang::Parser parser;
+
     BlockNode* rootBlockNode = (BlockNode*)parser.visitFile(file);
 
-    auto* interp = new slow::SlowInterpreter;
+    auto* ctx = new SlowContext();
 
-    for (auto* stmtNode : rootBlockNode->statements)
-    {
-        interp->runNode(stmtNode);
-    }
+    auto* res = rootBlockNode->slowRun(ctx);
+    res->print();
 
     stream.close();
     if (argc <= 1)

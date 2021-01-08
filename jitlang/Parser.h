@@ -2,6 +2,7 @@
 
 #include <antlr4-runtime.h>
 #include "ast/ASTNode.h"
+#include "ast/BlockNode.h"
 #include "grammar/JITLangParser.h"
     
 namespace jitlang
@@ -23,14 +24,19 @@ namespace jitlang
         ASTNode* visitAssign(JITLangParser::AssignContext* ctx);
         // Visit expr
         ASTNode* visitExpr(JITLangParser::ExprContext* ctx);
-        ASTNode* visitCompareExpr(JITLangParser::ExprContext* ctx);
-        // Visit literal
-        ASTNode* visitLiteral(JITLangParser::LiteralContext* ctx);
-        // Visit incr/decr
-        ASTNode* visitIncrDecr(JITLangParser::Incr_decrContext* ctx);
         // Visit function call
         ASTNode* visitFuncCall(JITLangParser::Func_callContext* ctx);
+        // Visit atom
+        ASTNode* visitAtom(JITLangParser::AtomContext* ctx);
+        // Visit literal
+        ASTNode* visitLiteral(JITLangParser::LiteralContext* ctx);
     private:
-        // Possibly keep up with preprocessor directives, etc here(?)
+        // Handle special expr cases
+        ASTNode* visitPostExpr(JITLangParser::ExprContext* ctx);
+        ASTNode* visitPreExpr(JITLangParser::ExprContext* ctx);
+        ASTNode* visitBinOpExpr(JITLangParser::ExprContext* ctx, std::string binOp);
+        ASTNode* visitTernExpr(JITLangParser::ExprContext* ctx);
+        // Handle function/if/file statements
+        BlockNode* visitStatements(std::vector<JITLangParser::StmtContext*> statements);
     };
 }

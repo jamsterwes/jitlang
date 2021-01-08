@@ -25,11 +25,20 @@
     <Filter Include="Header Files\AST">
       <UniqueIdentifier>{bb21d426-94d1-459f-81da-51a9b277b275}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\SlowInterpreter">
-      <UniqueIdentifier>{d35e4380-bd8a-4d44-9076-d2f41e3832fb}</UniqueIdentifier>
+    <Filter Include="Header Files\AST\Old">
+      <UniqueIdentifier>{def16f4d-b8f7-4260-9f72-06aae8e00ce3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\SlowInterpreter">
-      <UniqueIdentifier>{16bb690c-04db-4ad6-9a51-f24a7a7d288d}</UniqueIdentifier>
+    <Filter Include="Source Files\AST">
+      <UniqueIdentifier>{127b6f15-43a8-4829-9e5a-0144c722027c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Interpreter">
+      <UniqueIdentifier>{ac8e9ead-129a-4cdc-bacf-ae8017db0e74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Compiler">
+      <UniqueIdentifier>{c6c75a4e-0f2c-4396-b6a9-410a784fbace}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interpreter">
+      <UniqueIdentifier>{384e15a7-3a37-4e1e-9fba-46a7b61d43a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,8 +54,35 @@
     <ClCompile Include="Parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SlowInterpreter\SlowInterpreter.cpp">
-      <Filter>Source Files\SlowInterpreter</Filter>
+    <ClCompile Include="ast\GetVarNode.cpp">
+      <Filter>Source Files\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="interpreter\SlowContext.cpp">
+      <Filter>Source Files\Interpreter</Filter>
+    </ClCompile>
+    <ClCompile Include="ast\BinOpNode.cpp">
+      <Filter>Source Files\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="ast\ConstNode.cpp">
+      <Filter>Source Files\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="ast\BlockNode.cpp">
+      <Filter>Source Files\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="ast\DefVarNode.cpp">
+      <Filter>Source Files\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="ast\SetVarNode.cpp">
+      <Filter>Source Files\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="ast\IfNode.cpp">
+      <Filter>Source Files\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="ast\FuncCallNode.cpp">
+      <Filter>Source Files\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="ast\FuncDefineNode.cpp">
+      <Filter>Source Files\AST</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,49 +92,67 @@
     <ClInclude Include="grammar\JITLangParser.h">
       <Filter>Header Files\Auto Generated</Filter>
     </ClInclude>
-    <ClInclude Include="ast\BlockNode.h">
-      <Filter>Header Files\AST</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\DecrNode.h">
-      <Filter>Header Files\AST</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\DefinitionNode.h">
-      <Filter>Header Files\AST</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\FuncCallNode.h">
-      <Filter>Header Files\AST</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\IdentifierNode.h">
-      <Filter>Header Files\AST</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\IncrNode.h">
-      <Filter>Header Files\AST</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\AssignmentNode.h">
-      <Filter>Header Files\AST</Filter>
-    </ClInclude>
     <ClInclude Include="ast\ASTNode.h">
       <Filter>Header Files\AST</Filter>
     </ClInclude>
     <ClInclude Include="Parser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ast\NumberLiteralNode.h">
+    <ClInclude Include="ast\BinOpNode.h">
       <Filter>Header Files\AST</Filter>
     </ClInclude>
-    <ClInclude Include="ast\StringLiteralNode.h">
-      <Filter>Header Files\AST</Filter>
-    </ClInclude>
-    <ClInclude Include="SlowInterpreter\SlowInterpreter.h">
-      <Filter>Header Files\SlowInterpreter</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\FunctionDefinitionNode.h">
-      <Filter>Header Files\AST</Filter>
+    <ClInclude Include="ast\AssignmentNode.h">
+      <Filter>Header Files\AST\Old</Filter>
     </ClInclude>
     <ClInclude Include="AST\CompareNode.h">
+      <Filter>Header Files\AST\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\DecrNode.h">
+      <Filter>Header Files\AST\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\DefinitionNode.h">
+      <Filter>Header Files\AST\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\FunctionDefinitionNode.h">
+      <Filter>Header Files\AST\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\IdentifierNode.h">
+      <Filter>Header Files\AST\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\IncrNode.h">
+      <Filter>Header Files\AST\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\NumberLiteralNode.h">
+      <Filter>Header Files\AST\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\StringLiteralNode.h">
+      <Filter>Header Files\AST\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\GetVarNode.h">
       <Filter>Header Files\AST</Filter>
     </ClInclude>
-    <ClInclude Include="AST\IfNode.h">
+    <ClInclude Include="compiler\LLContext.h">
+      <Filter>Header Files\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="interpreter\SlowContext.h">
+      <Filter>Header Files\Interpreter</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\ConstNode.h">
+      <Filter>Header Files\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\BlockNode.h">
+      <Filter>Header Files\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\SetVarNode.h">
+      <Filter>Header Files\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\IfNode.h">
+      <Filter>Header Files\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\FuncCallNode.h">
+      <Filter>Header Files\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\FuncDefineNode.h">
       <Filter>Header Files\AST</Filter>
     </ClInclude>
   </ItemGroup>
@@ -108,6 +162,9 @@
     </None>
     <None Include="samples\main.jit">
       <Filter>Source Files\Samples</Filter>
+    </None>
+    <None Include="ast\DefVarNode.h">
+      <Filter>Header Files\AST</Filter>
     </None>
   </ItemGroup>
 </Project>

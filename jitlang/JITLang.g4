@@ -29,23 +29,23 @@ assign
     ;
 
 expr
-    : atom                                      // atomExpr
-    | preIncr=('++' | '--') expr                // preDecrExpr
-    | expr postIncr=('++' | '--')               // postIncrExpr
+    : func_call                                 // funcCallExpr
+    | atom                                      // atomExpr
+    | expr postop=('++' | '--')                 // postExpr
+    | preop=('++' | '--' | '!') expr            // preExpr
     | expr mult=('*' | '/' | '%') expr          // multExpr
     | expr add=('+' | '-') expr                 // addExpr
     | expr gt=('>' | '>=' | '<=' | '<') expr    // cmpGtExpr
     | expr eq=('==' | '!=') expr                // cmpEqExpr
-    | func_call                                 // funcCallExpr
-    | '(' expr ')'                              // parenExpr
-    | expr logAnd=('&&' | AND) expr             // logAnd
-    | expr logOr=('||' | OR) expr               // logOr
+    | '(' paren=expr ')'                        // parenExpr
+    | expr logAnd=('&&' | AND) expr             // logAndExpr
+    | expr logOr=('||' | OR) expr               // logOrExpr
     | cond=expr tern='?' t=expr ':' f=expr      // ternExpr
     ;
 
 atom
-    : literal
-    | IDENT
+    : literal                                   // constExpr
+    | IDENT                                     // getVarExpr
     ;
 
 arg_list

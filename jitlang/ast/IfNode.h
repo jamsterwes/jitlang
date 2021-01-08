@@ -1,15 +1,18 @@
 #pragma once
-#include <string>
 #include "ASTNode.h"
 #include "BlockNode.h"
+#include <string>
 
-// TODO: add arguments & return
 class IfNode : public ASTNode
 {
 public:
-    IfNode(ASTNode* condition, BlockNode* block) : condition(condition), block(block) {}
-    virtual ASTNodeType getType() { return ASTNodeType::IF; }
+    IfNode(ASTNode* cond, BlockNode* block) : cond(cond), block(block) {}
 
-    ASTNode* condition;
+    virtual ASTNodeType getType() override { return ASTNodeType::IF; }
+
+    virtual ASTValue* slowRun(SlowContext* ctx) override;
+    virtual llvm::Value* llEval(LLContext* ctx) override;
+private:
+    ASTNode* cond;
     BlockNode* block;
 };

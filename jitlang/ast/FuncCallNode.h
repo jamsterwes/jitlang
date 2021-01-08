@@ -1,14 +1,18 @@
 #pragma once
+#include "ASTNode.h"
 #include <string>
 #include <vector>
-#include "ASTNode.h"
 
 class FuncCallNode : public ASTNode
 {
 public:
-    FuncCallNode(std::string name, std::vector<ASTNode*> args) : name(name), args(args) {}
-    virtual ASTNodeType getType() { return ASTNodeType::FUNC_CALL; }
+    FuncCallNode(std::string funcName, std::vector<ASTNode*> args) : name(funcName), args(args) {}
 
+    virtual ASTNodeType getType() override { return ASTNodeType::FUNC_CALL; }
+
+    virtual ASTValue* slowRun(SlowContext* ctx) override;
+    virtual llvm::Value* llEval(LLContext* ctx) override;
+private:
     std::string name;
     std::vector<ASTNode*> args;
 };

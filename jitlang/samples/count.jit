@@ -1,10 +1,9 @@
 counter: num = 20
-sentinel: num = 0
 
 fn countdown() {
-    counter
-    counter--
-    if (counter > sentinel) {
+    print(counter)
+    counter = counter - 5
+    if (counter > 0) {
         countdown()
     }
 }

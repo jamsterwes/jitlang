@@ -16,8 +16,8 @@ public:
     T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
     T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, T__18 = 19, T__19 = 20, 
     T__20 = 21, T__21 = 22, T__22 = 23, T__23 = 24, T__24 = 25, T__25 = 26, 
-    AND = 27, OR = 28, IDENT = 29, STRING = 30, NUMBER = 31, WHITESPACE = 32, 
-    COMMENT = 33
+    T__26 = 27, AND = 28, OR = 29, IDENT = 30, STRING = 31, NUMBER = 32, 
+    WHITESPACE = 33, COMMENT = 34
   };
 
   explicit JITLangLexer(antlr4::CharStream *input);

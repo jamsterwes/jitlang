@@ -1,13 +1,16 @@
 #pragma once
-#include <string>
-#include <vector>
 #include "ASTNode.h"
+#include <vector>
 
 class BlockNode : public ASTNode
 {
 public:
-    BlockNode(std::vector<ASTNode*> statements) : statements(statements) {}
-    virtual ASTNodeType getType() { return ASTNodeType::BLOCK; }
+    BlockNode(std::vector<ASTNode*> nodes) : nodes(nodes) {}
 
-    std::vector<ASTNode*> statements;
+    virtual ASTNodeType getType() override { return ASTNodeType::BLOCK; };
+
+    virtual ASTValue* slowRun(SlowContext* ctx) override;
+    virtual llvm::Value* llEval(LLContext* ctx) override;
+private:
+    std::vector<ASTNode*> nodes;
 };
