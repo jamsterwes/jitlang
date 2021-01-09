@@ -154,5 +154,8 @@
     <None Include="ast\DefVarNode.h">
       <Filter>Header Files\AST</Filter>
     </None>
+    <None Include="samples\func.jit">
+      <Filter>Source Files\Samples</Filter>
+    </None>
   </ItemGroup>
 </Project>

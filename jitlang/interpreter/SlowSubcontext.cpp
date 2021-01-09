@@ -20,7 +20,7 @@ void SlowSubcontext::defineFunction(std::string name, Function func)
     parent->defineFunction(name, func);
 }
 
-ASTValue* SlowSubcontext::callFunction(std::string name, std::vector<ASTNode*> args)
+ASTValue* SlowSubcontext::callFunction(std::string name, std::vector<ASTNode*> args, SlowContext* ctx)
 {
-    return parent->callFunction(name, args);
+    return parent->callFunction(name, args, ctx == nullptr ? this : ctx);
 }

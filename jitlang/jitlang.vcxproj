@@ -59,6 +59,7 @@
   <ItemGroup>
     <None Include="ast\DefVarNode.h" />
     <None Include="samples\count.jit" />
+    <None Include="samples\func.jit" />
     <None Include="samples\main.jit" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

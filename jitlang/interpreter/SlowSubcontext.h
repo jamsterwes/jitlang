@@ -11,7 +11,7 @@ public:
     virtual void setVar(std::string name, class ASTValue* newValue) override;
     /* Function definition goes straight to global */
     virtual void defineFunction(std::string name, Function func) override;
-    virtual ASTValue* callFunction(std::string name, std::vector<class ASTNode*> args);
+    virtual ASTValue* callFunction(std::string name, std::vector<class ASTNode*> args, SlowContext* ctx = nullptr);
 private:
     SlowContext* parent;
 };

@@ -33,7 +33,7 @@ public:
 
     // Function access
     virtual void defineFunction(std::string name, Function func);
-    virtual ASTValue* callFunction(std::string name, std::vector<class ASTNode*> args);
+    virtual ASTValue* callFunction(std::string name, std::vector<class ASTNode*> args, SlowContext* ctx = nullptr);
 private:
     std::map<std::string, class ASTValue*> _vars;
     std::map<std::string, Function> _funcs;

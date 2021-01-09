@@ -53,14 +53,14 @@ void SlowContext::defineFunction(std::string name, Function func)
     _funcs[name] = func;
 }
 
-ASTValue* SlowContext::callFunction(std::string name, std::vector<ASTNode*> args)
+ASTValue* SlowContext::callFunction(std::string name, std::vector<ASTNode*> args, SlowContext* ctx)
 {
     // Check builtins
     if (name == "print")
     {
         for (auto* argNode : args)
         {
-            auto* argValue = argNode->slowRun(this);
+            auto* argValue = argNode->slowRun(ctx == nullptr ? this : ctx);
             argValue->print();
         }
         return nullptr;
@@ -77,12 +77,12 @@ ASTValue* SlowContext::callFunction(std::string name, std::vector<ASTNode*> args
     std::vector<ASTValue*> argValues{};
     for (auto* argNode : args)
     {
-        auto* argVal = argNode->slowRun(this);
+        auto* argVal = argNode->slowRun(ctx == nullptr ? this : ctx);
         argValues.push_back(argVal);
     }
 
     // Subcontext creation
-    SlowSubcontext* funcCtx = new SlowSubcontext(this);
+    SlowSubcontext* funcCtx = new SlowSubcontext(ctx == nullptr ? this : ctx);
     for (int i = 0; i < f.args.size(); i++)
     {
         if (f.args[i].ty != (uint8_t)argValues[i]->type)
