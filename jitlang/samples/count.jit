@@ -1,8 +1,22 @@
 counter: num = 20
+test: bool = 6 > 4
+
+msg: str = "====="
+
+print(!test)
+
+print("")
+
+print(counter++)
+print(++counter)
+print(counter--)
+print(--counter)
+
+print("")
 
 fn countdown() {
     print(counter)
-    counter = counter - 5
+    counter--
     if (counter > 0) {
         countdown()
     }

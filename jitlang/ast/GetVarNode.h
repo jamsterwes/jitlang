@@ -11,6 +11,8 @@ public:
 
     virtual ASTValue* slowRun(SlowContext* ctx) override;
     virtual llvm::Value* llEval(LLContext* ctx) override;
+
+    std::string getName() { return name; }
 private:
     std::string name;
 };

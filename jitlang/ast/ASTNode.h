@@ -18,6 +18,8 @@ enum class ASTNodeType : uint8_t
     IF = 6,
     FUNC_CALL = 7,
     FUNC_DEFINE = 8,
+    PRE_OP = 9,
+    POST_OP = 10,
 };
 
 enum class ASTValueType
@@ -46,12 +48,12 @@ union ASTValueData
 {
     bool boolValue;
     double numberValue;
-    std::string* stringValue;
+    char* stringValue;
 
     ASTValueData() : numberValue(0.0) {}
     ASTValueData(bool val) : boolValue(val) {}
     ASTValueData(double val) : numberValue(val) {}
-    ASTValueData(std::string* val) : stringValue(val) {}
+    ASTValueData(char* val) { stringValue = new char[strlen(val) + 1]; strcpy(stringValue, val); }
 };
 
 struct ASTValue
@@ -62,7 +64,7 @@ struct ASTValue
     ASTValue(ASTValueType type, ASTValueData data) : type(type), data(data) {}
     static ASTValue* create(bool val) { return new ASTValue(ASTValueType::BOOL, ASTValueData(val)); }
     static ASTValue* create(double val) { return new ASTValue(ASTValueType::NUMBER, ASTValueData(val)); }
-    static ASTValue* create(std::string* val) { return new ASTValue(ASTValueType::STRING, ASTValueData(val)); }
+    static ASTValue* create(char* val) { return new ASTValue(ASTValueType::STRING, ASTValueData(val)); }
 
     void print()
     {
@@ -70,7 +72,7 @@ struct ASTValue
         switch (type)
         {
         case ASTValueType::BOOL:
-            std::cout << data.boolValue << std::endl;
+            std::cout << (data.boolValue ? "true" : "false") << std::endl;
             break;
         case ASTValueType::NUMBER:
             std::cout << data.numberValue << std::endl;

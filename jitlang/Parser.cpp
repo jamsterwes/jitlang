@@ -8,6 +8,8 @@
 #include "ast/FuncDefineNode.h"
 #include "ast/GetVarNode.h"
 #include "ast/IfNode.h"
+#include "ast/PostOpNode.h"
+#include "ast/PreOpNode.h"
 #include "ast/SetVarNode.h"
 
 namespace jitlang
@@ -99,22 +101,20 @@ namespace jitlang
         else if (ctx->STRING()) 
         {
             std::string value = ctx->STRING()->getText();
-            value = value.substr(1, value.length());
-            return new ConstNode(ASTValue::create(&value));
+            value = value.substr(1, value.length() - 2);
+            return new ConstNode(ASTValue::create((char*)value.c_str()));
         }
         else return nullptr;
     }
 
     ASTNode* Parser::visitPostExpr(JITLangParser::ExprContext* ctx)
     {
-        std::cout << "PostOpNode not written yet" << std::endl;
-        return nullptr;
+        return new PostOpNode(visitExpr(ctx->expr(0)), ctx->postop->getText());
     }
 
     ASTNode* Parser::visitPreExpr(JITLangParser::ExprContext* ctx)
     {
-        std::cout << "PreOpNode not written yet" << std::endl;
-        return nullptr;
+        return new PreOpNode(visitExpr(ctx->expr(0)), ctx->preop->getText());
     }
 
     ASTNode* Parser::visitBinOpExpr(JITLangParser::ExprContext* ctx, std::string binOp)

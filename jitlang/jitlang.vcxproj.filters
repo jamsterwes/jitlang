@@ -84,6 +84,12 @@
     <ClCompile Include="ast\FuncDefineNode.cpp">
       <Filter>Source Files\AST</Filter>
     </ClCompile>
+    <ClCompile Include="ast\PreOpNode.cpp">
+      <Filter>Source Files\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="ast\PostOpNode.cpp">
+      <Filter>Source Files\AST</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="grammar\JITLangLexer.h">
@@ -153,6 +159,12 @@
       <Filter>Header Files\AST</Filter>
     </ClInclude>
     <ClInclude Include="ast\FuncDefineNode.h">
+      <Filter>Header Files\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\PreOpNode.h">
+      <Filter>Header Files\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="ast\PostOpNode.h">
       <Filter>Header Files\AST</Filter>
     </ClInclude>
   </ItemGroup>

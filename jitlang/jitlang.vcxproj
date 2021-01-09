@@ -27,6 +27,8 @@
     <ClCompile Include="ast\FuncDefineNode.cpp" />
     <ClCompile Include="ast\GetVarNode.cpp" />
     <ClCompile Include="ast\IfNode.cpp" />
+    <ClCompile Include="ast\PostOpNode.cpp" />
+    <ClCompile Include="ast\PreOpNode.cpp" />
     <ClCompile Include="ast\SetVarNode.cpp" />
     <ClCompile Include="grammar\JITLangLexer.cpp" />
     <ClCompile Include="grammar\JITLangParser.cpp" />
@@ -75,6 +77,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="ast\PostOpNode.h" />
+    <ClInclude Include="ast\PreOpNode.h" />
     <ClInclude Include="ast\SetVarNode.h" />
     <ClInclude Include="ast\StringLiteralNode.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -191,7 +195,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -206,7 +210,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>

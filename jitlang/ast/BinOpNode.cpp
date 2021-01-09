@@ -21,8 +21,8 @@ ASTValue* add(ASTValue* lhs, ASTValue* rhs)
     // string + string -> concat (string)
     else if (lhs->type == ASTValueType::STRING)
     {
-        std::string output = *lhs->data.stringValue + *rhs->data.stringValue;
-        return ASTValue::create(&output);
+        std::string output = std::string(lhs->data.stringValue) + rhs->data.stringValue;
+        return ASTValue::create((char*)output.c_str());
     }
     // ? + ? -> nullptr
     else
@@ -74,8 +74,8 @@ ASTValue* mul(ASTValue* lhs, ASTValue* rhs)
         else if (repAmt > 1)
         {
             std::string output = "";
-            for (int i = 0; i < repAmt; i++) output += *lhs->data.stringValue;
-            return ASTValue::create(&output);
+            for (int i = 0; i < repAmt; i++) output += lhs->data.stringValue;
+            return ASTValue::create((char*)output.c_str());
         }
         // unknown error -> nullptr
         else
@@ -251,7 +251,7 @@ ASTValue* eq(ASTValue* lhs, ASTValue* rhs)
     // string == string -> eq (bool)
     else if (lhs->type == ASTValueType::STRING)
     {
-        return ASTValue::create(*lhs->data.stringValue == *rhs->data.stringValue);
+        return ASTValue::create(strcmp(lhs->data.stringValue, rhs->data.stringValue) == 0);
     }
     // ? == ? -> nullptr
     else
@@ -282,7 +282,7 @@ ASTValue* neq(ASTValue* lhs, ASTValue* rhs)
     // string != string -> neq (bool)
     else if (lhs->type == ASTValueType::STRING)
     {
-        return ASTValue::create(*lhs->data.stringValue != *rhs->data.stringValue);
+        return ASTValue::create(strcmp(lhs->data.stringValue, rhs->data.stringValue) != 0);
     }
     // ? != ? -> nullptr
     else
