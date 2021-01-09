@@ -25,9 +25,6 @@
     <Filter Include="Header Files\AST">
       <UniqueIdentifier>{bb21d426-94d1-459f-81da-51a9b277b275}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\AST\Old">
-      <UniqueIdentifier>{def16f4d-b8f7-4260-9f72-06aae8e00ce3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\AST">
       <UniqueIdentifier>{127b6f15-43a8-4829-9e5a-0144c722027c}</UniqueIdentifier>
     </Filter>
@@ -90,6 +87,9 @@
     <ClCompile Include="ast\PostOpNode.cpp">
       <Filter>Source Files\AST</Filter>
     </ClCompile>
+    <ClCompile Include="interpreter\SlowSubcontext.cpp">
+      <Filter>Source Files\Interpreter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="grammar\JITLangLexer.h">
@@ -106,33 +106,6 @@
     </ClInclude>
     <ClInclude Include="ast\BinOpNode.h">
       <Filter>Header Files\AST</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\AssignmentNode.h">
-      <Filter>Header Files\AST\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="AST\CompareNode.h">
-      <Filter>Header Files\AST\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\DecrNode.h">
-      <Filter>Header Files\AST\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\DefinitionNode.h">
-      <Filter>Header Files\AST\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\FunctionDefinitionNode.h">
-      <Filter>Header Files\AST\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\IdentifierNode.h">
-      <Filter>Header Files\AST\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\IncrNode.h">
-      <Filter>Header Files\AST\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\NumberLiteralNode.h">
-      <Filter>Header Files\AST\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="ast\StringLiteralNode.h">
-      <Filter>Header Files\AST\Old</Filter>
     </ClInclude>
     <ClInclude Include="ast\GetVarNode.h">
       <Filter>Header Files\AST</Filter>
@@ -166,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="ast\PostOpNode.h">
       <Filter>Header Files\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="interpreter\SlowSubcontext.h">
+      <Filter>Header Files\Interpreter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

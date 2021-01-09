@@ -33,14 +33,11 @@
     <ClCompile Include="grammar\JITLangLexer.cpp" />
     <ClCompile Include="grammar\JITLangParser.cpp" />
     <ClCompile Include="interpreter\SlowContext.cpp" />
+    <ClCompile Include="interpreter\SlowSubcontext.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Parser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ast\AssignmentNode.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="ast\ASTNode.h" />
     <ClInclude Include="ast\BlockNode.h" />
     <ClInclude Include="ast\ConstNode.h" />
@@ -48,46 +45,15 @@
     <ClInclude Include="ast\FuncDefineNode.h" />
     <ClInclude Include="ast\GetVarNode.h" />
     <ClInclude Include="ast\BinOpNode.h" />
-    <ClInclude Include="AST\CompareNode.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="ast\DecrNode.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="ast\DefinitionNode.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="ast\FunctionDefinitionNode.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="ast\IdentifierNode.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="ast\IfNode.h" />
-    <ClInclude Include="ast\IncrNode.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="ast\NumberLiteralNode.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="ast\PostOpNode.h" />
     <ClInclude Include="ast\PreOpNode.h" />
     <ClInclude Include="ast\SetVarNode.h" />
-    <ClInclude Include="ast\StringLiteralNode.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="compiler\LLContext.h" />
     <ClInclude Include="grammar\JITLangLexer.h" />
     <ClInclude Include="grammar\JITLangParser.h" />
     <ClInclude Include="interpreter\SlowContext.h" />
+    <ClInclude Include="interpreter\SlowSubcontext.h" />
     <ClInclude Include="Parser.h" />
   </ItemGroup>
   <ItemGroup>

@@ -27,13 +27,13 @@ public:
     SlowContext() : _vars() {}
 
     // Variable access
-    void insertVar(std::string name, class ASTValue* value);
-    class ASTValue* getVar(std::string name);
-    void setVar(std::string name, class ASTValue* newValue);
+    virtual void insertVar(std::string name, class ASTValue* value);
+    virtual class ASTValue* getVar(std::string name, bool verbose=true);
+    virtual void setVar(std::string name, class ASTValue* newValue);
 
     // Function access
-    void defineFunction(std::string name, Function func);
-    ASTValue* callFunction(std::string name, std::vector<class ASTNode*> args);
+    virtual void defineFunction(std::string name, Function func);
+    virtual ASTValue* callFunction(std::string name, std::vector<class ASTNode*> args);
 private:
     std::map<std::string, class ASTValue*> _vars;
     std::map<std::string, Function> _funcs;

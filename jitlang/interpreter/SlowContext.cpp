@@ -2,6 +2,7 @@
 #include "../ast/ASTNode.h"
 #include "../ast/BlockNode.h"
 #include "SlowContext.h"
+#include "SlowSubcontext.h"
 #include <iostream>
 
 FunctionArg::FunctionArg(std::string name, uint8_t ty) : name(name), ty(ty) {}
@@ -19,11 +20,11 @@ void SlowContext::insertVar(std::string name, ASTValue* value)
     _vars[name] = value;
 }
 
-ASTValue* SlowContext::getVar(std::string name)
+ASTValue* SlowContext::getVar(std::string name, bool verbose)
 {
     if (_vars.find(name) == _vars.end())
     {
-        std::cout << "ERROR: variable " << name << " not defined!" << std::endl;
+        if (verbose) std::cout << "ERROR: variable " << name << " not defined!" << std::endl;
         return nullptr;
     }
 
@@ -80,21 +81,21 @@ ASTValue* SlowContext::callFunction(std::string name, std::vector<ASTNode*> args
         argValues.push_back(argVal);
     }
 
+    // Subcontext creation
+    SlowSubcontext* funcCtx = new SlowSubcontext(this);
     for (int i = 0; i < f.args.size(); i++)
     {
-        // Set or assign (?)
         if (f.args[i].ty != (uint8_t)argValues[i]->type)
         {
             std::cout << "ERROR: type mismatch on parameter " << f.args[i].name << std::endl;
             continue;
         }
-
-        if (_vars.find(f.args[i].name) == _vars.end()) this->insertVar(f.args[i].name, argValues[i]);
-        else this->setVar(f.args[i].name, argValues[i]);
+        
+        funcCtx->insertVar(f.args[i].name, argValues[i]);
     }
 
     // TODO: context handling
-    auto* ret = f.funcBlock->slowRun(this);
+    auto* ret = f.funcBlock->slowRun(funcCtx);
     if ((int8_t)f.retTy == -1) return nullptr;
     else
     {   
