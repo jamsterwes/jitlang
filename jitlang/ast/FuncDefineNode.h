@@ -7,7 +7,8 @@
 class FuncDefineNode : public ASTNode
 {
 public:
-    FuncDefineNode(std::string funcName, std::vector<FunctionArg> args, BlockNode* funcBlock) : name(funcName), args(args), block(funcBlock) {}
+    FuncDefineNode(std::string funcName, std::vector<FunctionArg> args, BlockNode* funcBlock) : name(funcName), args(args), block(funcBlock), retType((ASTValueType)-1) {}
+    FuncDefineNode(std::string funcName, ASTValueType retType, std::vector<FunctionArg> args, BlockNode* funcBlock) : name(funcName), args(args), block(funcBlock), retType(retType) {}
 
     virtual ASTNodeType getType() override { return ASTNodeType::FUNC_DEFINE; }
 
@@ -16,5 +17,6 @@ public:
 private:
     std::string name;
     std::vector<FunctionArg> args;
+    ASTValueType retType;
     BlockNode* block;
 };

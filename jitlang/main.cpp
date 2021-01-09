@@ -13,7 +13,7 @@ int main(int argc, const char** argv)
 {
     std::ifstream stream;
     if (argc > 1) stream.open(argv[1]);
-    else stream.open("samples/count.jit");
+    else stream.open("samples/func.jit");
 
     ANTLRInputStream input(stream);
     JITLangLexer lexer(&input);

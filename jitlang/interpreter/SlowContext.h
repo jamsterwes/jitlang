@@ -13,11 +13,12 @@ struct FunctionArg
 
 struct Function
 {
+    uint8_t retTy;
     std::vector<FunctionArg> args;
     class BlockNode* funcBlock;
 
     Function();
-    Function(std::vector<FunctionArg> args, class BlockNode* funcBlock);
+    Function(std::vector<FunctionArg> args, uint8_t retTy, class BlockNode* funcBlock);
 };
 
 class SlowContext

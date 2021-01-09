@@ -2,7 +2,7 @@
 
 ASTValue* FuncDefineNode::slowRun(SlowContext* ctx)
 {
-    ctx->defineFunction(name, Function(args, block));
+    ctx->defineFunction(name, Function(args, (uint8_t)retType, block));
     return nullptr;
 }
 

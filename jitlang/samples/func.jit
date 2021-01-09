@@ -1,0 +1,16 @@
+fn nthOdd(n: num) -> num {
+    2 * n + 1
+}
+
+counter: num = 0
+
+fn countOdds() {
+    print(nthOdd(counter))
+    counter++
+    if (counter < 5)
+    {
+        countOdds()
+    }
+}
+
+countOdds()

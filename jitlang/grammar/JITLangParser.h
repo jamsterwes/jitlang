@@ -16,14 +16,14 @@ public:
     T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
     T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, T__18 = 19, T__19 = 20, 
     T__20 = 21, T__21 = 22, T__22 = 23, T__23 = 24, T__24 = 25, T__25 = 26, 
-    T__26 = 27, AND = 28, OR = 29, IDENT = 30, STRING = 31, NUMBER = 32, 
-    WHITESPACE = 33, COMMENT = 34
+    T__26 = 27, T__27 = 28, AND = 29, OR = 30, IDENT = 31, STRING = 32, 
+    NUMBER = 33, WHITESPACE = 34, COMMENT = 35
   };
 
   enum {
     RuleFile = 0, RuleStmt = 1, RuleFunction_define = 2, RuleIf_stmt = 3, 
-    RuleDefine = 4, RuleAssign = 5, RuleExpr = 6, RuleAtom = 7, RuleArg_list = 8, 
-    RuleFunc_call = 9, RuleLiteral = 10
+    RuleDefine = 4, RuleAssign = 5, RuleExpr = 6, RuleAtom = 7, RuleTyped_arg_list = 8, 
+    RuleTyped_arg = 9, RuleArg_list = 10, RuleFunc_call = 11, RuleLiteral = 12
   };
 
   explicit JITLangParser(antlr4::TokenStream *input);
@@ -44,6 +44,8 @@ public:
   class AssignContext;
   class ExprContext;
   class AtomContext;
+  class Typed_arg_listContext;
+  class Typed_argContext;
   class Arg_listContext;
   class Func_callContext;
   class LiteralContext; 
@@ -82,11 +84,15 @@ public:
 
   class  Function_defineContext : public antlr4::ParserRuleContext {
   public:
+    antlr4::Token *name = nullptr;
+    antlr4::Token *rettype = nullptr;
     JITLangParser::StmtContext *stmtContext = nullptr;
     std::vector<StmtContext *> statements;
     Function_defineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *IDENT();
+    std::vector<antlr4::tree::TerminalNode *> IDENT();
+    antlr4::tree::TerminalNode* IDENT(size_t i);
+    Typed_arg_listContext *typed_arg_list();
     std::vector<antlr4::tree::TerminalNode *> COMMENT();
     antlr4::tree::TerminalNode* COMMENT(size_t i);
     std::vector<StmtContext *> stmt();
@@ -185,6 +191,34 @@ public:
   };
 
   AtomContext* atom();
+
+  class  Typed_arg_listContext : public antlr4::ParserRuleContext {
+  public:
+    JITLangParser::Typed_argContext *typed_argContext = nullptr;
+    std::vector<Typed_argContext *> args;
+    Typed_arg_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    std::vector<Typed_argContext *> typed_arg();
+    Typed_argContext* typed_arg(size_t i);
+
+   
+  };
+
+  Typed_arg_listContext* typed_arg_list();
+
+  class  Typed_argContext : public antlr4::ParserRuleContext {
+  public:
+    antlr4::Token *name = nullptr;
+    antlr4::Token *type = nullptr;
+    Typed_argContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    std::vector<antlr4::tree::TerminalNode *> IDENT();
+    antlr4::tree::TerminalNode* IDENT(size_t i);
+
+   
+  };
+
+  Typed_argContext* typed_arg();
 
   class  Arg_listContext : public antlr4::ParserRuleContext {
   public:

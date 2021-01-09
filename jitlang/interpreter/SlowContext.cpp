@@ -6,7 +6,7 @@
 
 FunctionArg::FunctionArg(std::string name, uint8_t ty) : name(name), ty(ty) {}
 Function::Function() : args(), funcBlock(new BlockNode({})) {}
-Function::Function(std::vector<FunctionArg> args, BlockNode* funcBlock) : args(args), funcBlock(funcBlock) {}
+Function::Function(std::vector<FunctionArg> args, uint8_t retTy, BlockNode* funcBlock) : args(args), retTy(retTy), funcBlock(funcBlock) {}
 
 void SlowContext::insertVar(std::string name, ASTValue* value)
 {
@@ -73,13 +73,41 @@ ASTValue* SlowContext::callFunction(std::string name, std::vector<ASTNode*> args
 
     auto f = _funcs[name];
 
-    // TODO: context/argument handling
-    /*std::vector<ASTValue*> arg = 
+    std::vector<ASTValue*> argValues{};
     for (auto* argNode : args)
     {
-        auto* argVal
-    }*/
+        auto* argVal = argNode->slowRun(this);
+        argValues.push_back(argVal);
+    }
+
+    for (int i = 0; i < f.args.size(); i++)
+    {
+        // Set or assign (?)
+        if (f.args[i].ty != (uint8_t)argValues[i]->type)
+        {
+            std::cout << "ERROR: type mismatch on parameter " << f.args[i].name << std::endl;
+            continue;
+        }
+
+        if (_vars.find(f.args[i].name) == _vars.end()) this->insertVar(f.args[i].name, argValues[i]);
+        else this->setVar(f.args[i].name, argValues[i]);
+    }
 
     // TODO: context handling
-    return f.funcBlock->slowRun(this);
+    auto* ret = f.funcBlock->slowRun(this);
+    if ((int8_t)f.retTy == -1) return nullptr;
+    else
+    {   
+        if (ret == nullptr)
+        {
+            std::cout << "Missing return for function " << name << std::endl;
+            return nullptr;
+        }
+        if ((uint8_t)ret->type != f.retTy)
+        {
+            std::cout << "Return type mismatch on function " << name << std::endl;
+            return nullptr;
+        }
+        else return ret;
+    }
 }

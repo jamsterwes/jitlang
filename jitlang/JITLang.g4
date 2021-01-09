@@ -13,7 +13,7 @@ stmt
 
 // TODO: define functions with arguments, return type
 function_define
-    : 'fn' IDENT '(' ')' '\n'* '{' (statements+=stmt | '\n' | COMMENT)* '}'
+    : 'fn' name=IDENT '(' typed_arg_list? ')' ('->' rettype=IDENT)? '\n'* '{' (statements+=stmt | '\n' | COMMENT)* '}'
     ;
 
 if_stmt
@@ -48,6 +48,14 @@ atom
     | IDENT                                     // getVarExpr
     ;
 
+typed_arg_list
+    : (args+=typed_arg) (',' args+=typed_arg)*
+    ;
+
+typed_arg
+    : name=IDENT ':' type=IDENT
+    ;
+
 arg_list
     : (args+=expr) (',' args+=expr)*
     ;
@@ -77,7 +85,7 @@ STRING
 
 // Turns into a double
 NUMBER
-    : [0-9]+ ('.' [0-9]+)?
+    : '-'? [0-9]+ ('.' [0-9]+)?
     ;
 
 WHITESPACE

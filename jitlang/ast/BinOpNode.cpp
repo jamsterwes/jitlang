@@ -341,6 +341,8 @@ ASTValue* BinOpNode::slowRun(SlowContext* ctx)
     auto* lhsValue = this->lhs->slowRun(ctx);
     auto* rhsValue = this->rhs->slowRun(ctx);
 
+    if (lhsValue == nullptr || rhsValue == nullptr) return nullptr;
+
     if (this->binOp == "+") return add(lhsValue, rhsValue);
     else if (this->binOp == "-") return sub(lhsValue, rhsValue);
     else if (this->binOp == "*") return mul(lhsValue, rhsValue);

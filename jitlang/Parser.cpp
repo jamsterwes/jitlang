@@ -12,6 +12,20 @@
 #include "ast/PreOpNode.h"
 #include "ast/SetVarNode.h"
 
+ASTValueType getTypeFromString(std::string text)
+{
+    ASTValueType ty;
+    if (text == "str") ty = ASTValueType::STRING;
+    else if (text == "bool") ty = ASTValueType::BOOL;
+    else if (text == "num") ty = ASTValueType::NUMBER;
+    else
+    {
+        std::cout << "ERROR: unknown type " << text << std::endl;
+        return (ASTValueType)-1;
+    }
+    return ty;
+}
+
 namespace jitlang
 {
     ASTNode* Parser::visitFile(JITLangParser::FileContext* ctx)
@@ -36,22 +50,31 @@ namespace jitlang
 
     ASTNode* Parser::visitFunctionDefine(JITLangParser::Function_defineContext* ctx)
     {
-        // TODO: handle arguments/return-typing
-        return new FuncDefineNode(ctx->IDENT()->getText(), {}, visitStatements(ctx->statements));
+        // Handle arguments
+        std::vector<FunctionArg> args{};
+        if (ctx->typed_arg_list())
+        {
+            for (auto* arg : ctx->typed_arg_list()->args)
+            {
+                args.push_back(FunctionArg(arg->name->getText(), (uint8_t)getTypeFromString(arg->type->getText())));
+            }
+        }
+        if (ctx->rettype) 
+        {
+            std::string retTypeName = ctx->rettype->getText();
+            ASTValueType retTy = getTypeFromString(retTypeName);
+            if ((int)retTy == -1) return nullptr;
+
+            return new FuncDefineNode(ctx->name->getText(), retTy, args, visitStatements(ctx->statements));
+        }
+        else return new FuncDefineNode(ctx->name->getText(), args, visitStatements(ctx->statements));
     }
 
     ASTNode* Parser::visitDefine(JITLangParser::DefineContext* ctx)
     {
-        ASTValueType ty;
         std::string typeName = ctx->type->getText();
-        if (typeName == "str") ty = ASTValueType::STRING;
-        else if (typeName == "bool") ty = ASTValueType::BOOL;
-        else if (typeName == "num") ty = ASTValueType::NUMBER;
-        else
-        {
-            std::cout << "ERROR: unknown type " << typeName << std::endl;
-            return nullptr;
-        }
+        ASTValueType ty = getTypeFromString(typeName);
+        if ((int)ty == -1) return nullptr;
         return new DefVarNode(ctx->name->getText(), ty, visitExpr(ctx->value));
     }
 
