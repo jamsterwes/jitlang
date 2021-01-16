@@ -373,8 +373,8 @@ llvm::Value* llAdd(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
     if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFAdd(lhs, rhs);
     else if (lhs->getType() == TypeBuilder<char*>::get(ctx->getLLVM()))
     {
-        std::cout << "ERROR: concat not implemented yet for LLVM compiler" << std::endl;
-        return nullptr;
+        auto* libfunc = ctx->getMod()->getFunction("??catstr");
+        return ctx->getBuilder()->CreateCall(libfunc, {lhs, rhs});
     }
     else
     {
@@ -401,18 +401,17 @@ llvm::Value* llSub(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
 
 llvm::Value* llMul(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
 {
-    if (lhs->getType() != rhs->getType())
+    if (lhs->getType() == TypeBuilder<char*>::get(ctx->getLLVM()))
+    {
+        auto* libfunc = ctx->getMod()->getFunction("??repstr");
+        return ctx->getBuilder()->CreateCall(libfunc, {lhs, rhs});
+    }
+    else if (lhs->getType() != rhs->getType())
     {
         std::cout << "ERROR: mismatched types for binop(*)" << std::endl;
         return nullptr;
     }
-
-    if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFMul(lhs, rhs);
-    else if (lhs->getType() == TypeBuilder<char*>::get(ctx->getLLVM()))
-    {
-        std::cout << "ERROR: repeatstr not implemented yet for LLVM compiler" << std::endl;
-        return nullptr;
-    }
+    else if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFMul(lhs, rhs);
     else
     {
         std::cout << "ERROR: incompatible type for binop(*)" << std::endl;

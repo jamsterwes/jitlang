@@ -17,6 +17,7 @@ llvm::Value* FuncCallNode::llEval(LLContext* ctx)
     if (name == "print")
     {
         if (llArgs[0]->getType() == llvm::Type::getDoubleTy(ctx->getLLVM())) trueName = "??printNum";
+        else if (llArgs[0]->getType() == llvm::Type::getInt8PtrTy(ctx->getLLVM())) trueName = "??printStr";
     }
 
     auto* func = ctx->getMod()->getFunction(trueName);

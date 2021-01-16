@@ -2,4 +2,9 @@ fn getNum() -> num {
 	17 * 54
 }
 
+fn blank() -> str {
+	"Testing" * 10 + "Hello"
+}
+
 print(getNum())
+print(blank())

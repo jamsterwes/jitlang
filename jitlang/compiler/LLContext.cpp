@@ -21,6 +21,9 @@ LLContext::LLContext()
     _builder = std::make_unique<IRBuilder<>>(*_ctx);
 
     auto* printNum = Function::Create(TypeBuilder<void(double)>::get(getLLVM()), Function::LinkageTypes::ExternalLinkage, "??printNum", getMod());
+    auto* printStr = Function::Create(TypeBuilder<void(char*)>::get(getLLVM()), Function::LinkageTypes::ExternalLinkage, "??printStr", getMod());
+    auto* repStr = Function::Create(TypeBuilder<char*(char*, double)>::get(getLLVM()), Function::LinkageTypes::ExternalLinkage, "??repstr", getMod());
+    auto* catStr = Function::Create(TypeBuilder<char*(char*, char*)>::get(getLLVM()), Function::LinkageTypes::ExternalLinkage, "??catstr", getMod());
 }
 
 llvm::IRBuilder<>* LLContext::getBuilder()
