@@ -14,5 +14,11 @@ ASTValue* BlockNode::slowRun(SlowContext* ctx)
 
 llvm::Value* BlockNode::llEval(LLContext* ctx)
 {
-    return nullptr;
+    llvm::Value* retVal = nullptr;
+    for (auto* node : nodes)
+    {
+        auto* val = node->llEval(ctx);
+        if (val != nullptr) retVal = val;
+    }
+    return retVal;
 }

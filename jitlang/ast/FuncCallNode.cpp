@@ -7,5 +7,18 @@ ASTValue* FuncCallNode::slowRun(SlowContext* ctx)
 
 llvm::Value* FuncCallNode::llEval(LLContext* ctx)
 {
-    return nullptr;
+    std::string trueName = name;
+    std::vector<llvm::Value*> llArgs{};
+    for (auto* arg : args)
+    {
+        llArgs.push_back(arg->llEval(ctx));
+    }
+
+    if (name == "print")
+    {
+        if (llArgs[0]->getType() == llvm::Type::getDoubleTy(ctx->getLLVM())) trueName = "??printNum";
+    }
+
+    auto* func = ctx->getMod()->getFunction(trueName);
+    return ctx->getBuilder()->CreateCall(func, llArgs);
 }

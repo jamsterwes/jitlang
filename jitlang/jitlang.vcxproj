@@ -30,6 +30,8 @@
     <ClCompile Include="ast\PostOpNode.cpp" />
     <ClCompile Include="ast\PreOpNode.cpp" />
     <ClCompile Include="ast\SetVarNode.cpp" />
+    <ClCompile Include="compiler\LLContext.cpp" />
+    <ClCompile Include="drivers\LLDriver.cpp" />
     <ClCompile Include="grammar\JITLangLexer.cpp" />
     <ClCompile Include="grammar\JITLangParser.cpp" />
     <ClCompile Include="interpreter\SlowContext.cpp" />
@@ -50,6 +52,8 @@
     <ClInclude Include="ast\PreOpNode.h" />
     <ClInclude Include="ast\SetVarNode.h" />
     <ClInclude Include="compiler\LLContext.h" />
+    <ClInclude Include="compiler\TypeBuilder.h" />
+    <ClInclude Include="drivers\LLDriver.h" />
     <ClInclude Include="grammar\JITLangLexer.h" />
     <ClInclude Include="grammar\JITLangParser.h" />
     <ClInclude Include="interpreter\SlowContext.h" />
@@ -60,6 +64,7 @@
     <None Include="ast\DefVarNode.h" />
     <None Include="samples\count.jit" />
     <None Include="samples\func.jit" />
+    <None Include="samples\lltest.jit" />
     <None Include="samples\main.jit" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

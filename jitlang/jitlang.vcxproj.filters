@@ -37,6 +37,15 @@
     <Filter Include="Source Files\Interpreter">
       <UniqueIdentifier>{384e15a7-3a37-4e1e-9fba-46a7b61d43a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Compiler">
+      <UniqueIdentifier>{ed40f6d6-96c4-4dc0-8f4c-3a8d343e9867}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Drivers">
+      <UniqueIdentifier>{aabf5f6e-683c-4373-a627-4b6589c19205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Drivers">
+      <UniqueIdentifier>{2b2981f3-fe48-4635-9454-4d10f6cdb97a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -89,6 +98,12 @@
     </ClCompile>
     <ClCompile Include="interpreter\SlowSubcontext.cpp">
       <Filter>Source Files\Interpreter</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler\LLContext.cpp">
+      <Filter>Source Files\Compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="drivers\LLDriver.cpp">
+      <Filter>Source Files\Drivers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +158,12 @@
     <ClInclude Include="interpreter\SlowSubcontext.h">
       <Filter>Header Files\Interpreter</Filter>
     </ClInclude>
+    <ClInclude Include="compiler\TypeBuilder.h">
+      <Filter>Header Files\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="drivers\LLDriver.h">
+      <Filter>Header Files\Drivers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="samples\count.jit">
@@ -155,6 +176,9 @@
       <Filter>Header Files\AST</Filter>
     </None>
     <None Include="samples\func.jit">
+      <Filter>Source Files\Samples</Filter>
+    </None>
+    <None Include="samples\lltest.jit">
       <Filter>Source Files\Samples</Filter>
     </None>
   </ItemGroup>

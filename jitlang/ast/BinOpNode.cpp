@@ -1,4 +1,5 @@
 #include "BinOpNode.h"
+#include "../compiler/TypeBuilder.h"
 
 #include <cmath>
 #include <iostream>
@@ -359,7 +360,225 @@ ASTValue* BinOpNode::slowRun(SlowContext* ctx)
     else return nullptr;
 }
 
+/* LLVM BINOP IMPLEMENTATIONS */
+
+llvm::Value* llAdd(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
+{
+    if (lhs->getType() != rhs->getType())
+    {
+        std::cout << "ERROR: mismatched types for binop(+)" << std::endl;
+        return nullptr;
+    }
+
+    if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFAdd(lhs, rhs);
+    else if (lhs->getType() == TypeBuilder<char*>::get(ctx->getLLVM()))
+    {
+        std::cout << "ERROR: concat not implemented yet for LLVM compiler" << std::endl;
+        return nullptr;
+    }
+    else
+    {
+        std::cout << "ERROR: incompatible type for binop(+)" << std::endl;
+        return nullptr;
+    }
+}
+
+llvm::Value* llSub(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
+{
+    if (lhs->getType() != rhs->getType())
+    {
+        std::cout << "ERROR: mismatched types for binop(-)" << std::endl;
+        return nullptr;
+    }
+
+    if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFSub(lhs, rhs);
+    else
+    {
+        std::cout << "ERROR: incompatible type for binop(-)" << std::endl;
+        return nullptr;
+    }
+}
+
+llvm::Value* llMul(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
+{
+    if (lhs->getType() != rhs->getType())
+    {
+        std::cout << "ERROR: mismatched types for binop(*)" << std::endl;
+        return nullptr;
+    }
+
+    if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFMul(lhs, rhs);
+    else if (lhs->getType() == TypeBuilder<char*>::get(ctx->getLLVM()))
+    {
+        std::cout << "ERROR: repeatstr not implemented yet for LLVM compiler" << std::endl;
+        return nullptr;
+    }
+    else
+    {
+        std::cout << "ERROR: incompatible type for binop(*)" << std::endl;
+        return nullptr;
+    }
+}
+
+llvm::Value* llDiv(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
+{
+    if (lhs->getType() != rhs->getType())
+    {
+        std::cout << "ERROR: mismatched types for binop(/)" << std::endl;
+        return nullptr;
+    }
+
+    if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFDiv(lhs, rhs);
+    else
+    {
+        std::cout << "ERROR: incompatible type for binop(/)" << std::endl;
+        return nullptr;
+    }
+}
+
+llvm::Value* llRem(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
+{
+    if (lhs->getType() != rhs->getType())
+    {
+        std::cout << "ERROR: mismatched types for binop(%)" << std::endl;
+        return nullptr;
+    }
+
+    if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFRem(lhs, rhs);
+    else
+    {
+        std::cout << "ERROR: incompatible type for binop(%)" << std::endl;
+        return nullptr;
+    }
+}
+
+llvm::Value* llGT(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
+{
+    if (lhs->getType() != rhs->getType())
+    {
+        std::cout << "ERROR: mismatched types for binop(>)" << std::endl;
+        return nullptr;
+    }
+
+    if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFCmpUGT(lhs, rhs);
+    else
+    {
+        std::cout << "ERROR: incompatible type for binop(>)" << std::endl;
+        return nullptr;
+    }
+}
+
+llvm::Value* llGTE(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
+{
+    if (lhs->getType() != rhs->getType())
+    {
+        std::cout << "ERROR: mismatched types for binop(>=)" << std::endl;
+        return nullptr;
+    }
+
+    if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFCmpUGE(lhs, rhs);
+    else
+    {
+        std::cout << "ERROR: incompatible type for binop(>=)" << std::endl;
+        return nullptr;
+    }
+}
+
+llvm::Value* llLT(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
+{
+    if (lhs->getType() != rhs->getType())
+    {
+        std::cout << "ERROR: mismatched types for binop(<)" << std::endl;
+        return nullptr;
+    }
+
+    if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFCmpULT(lhs, rhs);
+    else
+    {
+        std::cout << "ERROR: incompatible type for binop(<)" << std::endl;
+        return nullptr;
+    }
+}
+
+llvm::Value* llLTE(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
+{
+    if (lhs->getType() != rhs->getType())
+    {
+        std::cout << "ERROR: mismatched types for binop(<=)" << std::endl;
+        return nullptr;
+    }
+
+    if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFCmpULE(lhs, rhs);
+    else
+    {
+        std::cout << "ERROR: incompatible type for binop(<=)" << std::endl;
+        return nullptr;
+    }
+}
+
+llvm::Value* llEQ(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
+{
+    if (lhs->getType() != rhs->getType())
+    {
+        std::cout << "ERROR: mismatched types for binop(==)" << std::endl;
+        return nullptr;
+    }
+
+    if (lhs->getType()->isIntegerTy()) return ctx->getBuilder()->CreateICmpEQ(lhs, rhs);
+    else if (lhs->getType() == TypeBuilder<char*>::get(ctx->getLLVM()))
+    {
+        std::cout << "ERROR: == not implemented yet for LLVM compiler" << std::endl;
+        return nullptr;
+    }
+    else if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFCmpUEQ(lhs, rhs);
+    else
+    {
+        std::cout << "ERROR: incompatible type for binop(==)" << std::endl;
+        return nullptr;
+    }
+}
+
+llvm::Value* llNEQ(LLContext* ctx, llvm::Value* lhs, llvm::Value* rhs)
+{
+    if (lhs->getType() != rhs->getType())
+    {
+        std::cout << "ERROR: mismatched types for binop(!=)" << std::endl;
+        return nullptr;
+    }
+
+    if (lhs->getType()->isIntegerTy()) return ctx->getBuilder()->CreateICmpNE(lhs, rhs);
+    else if (lhs->getType() == TypeBuilder<char*>::get(ctx->getLLVM()))
+    {
+        std::cout << "ERROR: != not implemented yet for LLVM compiler" << std::endl;
+        return nullptr;
+    }
+    else if (lhs->getType()->isDoubleTy()) return ctx->getBuilder()->CreateFCmpUNE(lhs, rhs);
+    else
+    {
+        std::cout << "ERROR: incompatible type for binop(!=)" << std::endl;
+        return nullptr;
+    }
+}
+
 llvm::Value* BinOpNode::llEval(LLContext* ctx)
 {
-    return nullptr;
+    llvm::Value* lhsValue = this->lhs->llEval(ctx);
+    llvm::Value* rhsValue = this->rhs->llEval(ctx);
+
+    if (lhsValue == nullptr || rhsValue == nullptr) return nullptr;
+
+    if (this->binOp == "+") return llAdd(ctx, lhsValue, rhsValue);
+    else if (this->binOp == "-") return llSub(ctx, lhsValue, rhsValue);
+    else if (this->binOp == "*") return llMul(ctx, lhsValue, rhsValue);
+    else if (this->binOp == "/") return llDiv(ctx, lhsValue, rhsValue);
+    else if (this->binOp == "%") return llRem(ctx, lhsValue, rhsValue);
+    else if (this->binOp == ">") return llGT(ctx, lhsValue, rhsValue);
+    else if (this->binOp == ">=") return llGTE(ctx, lhsValue, rhsValue);
+    else if (this->binOp == "<") return llLT(ctx, lhsValue, rhsValue);
+    else if (this->binOp == "<=") return llLTE(ctx, lhsValue, rhsValue);
+    else if (this->binOp == "==") return llEQ(ctx, lhsValue, rhsValue);
+    else if (this->binOp == "!=") return llNEQ(ctx, lhsValue, rhsValue);
+    //else if (this->binOp == "&&") return logAnd(lhsValue, rhsValue);
+    //else if (this->binOp == "||") return logOr(lhsValue, rhsValue);
+    else return nullptr;
 }
